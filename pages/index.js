@@ -1,65 +1,111 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import { getPosts } from "../data/ghost";
+import Link from "next/link";
+import Image from "next/image";
 
-export default function Home() {
+export const getStaticProps = async () => {
+  const posts = await getPosts();
+  return {
+    props: { posts },
+  };
+};
+
+const Home = (props) => {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+    <div className="font-body min-h-screen bg-gray-100 space-y-4">
+      <div>
+        <div className="mx-auto max-w-8xl px-6">
+          <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
+            <div className="flex items-center text-base flex-1">
+              <nav className="hidden ml-6 space-x-4 lg:block">
+                <Link href="/">
+                  <a>Cloudbites</a>
+                </Link>
+                <Link href="/about">
+                  <a>About</a>
+                </Link>
+                <Link href="/newsletter">
+                  <a>Newsletter</a>
+                </Link>
+                <Link href="/cloudjar">
+                  <a>Cloud Jar</a>
+                </Link>
+                <Link href="/community">
+                  <a>Our Community</a>
+                </Link>
+              </nav>
+            </div>
+          </div>
         </div>
-      </main>
+      </div>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      <span className="block">
+        <p className="text-secondary">
+          Bite-sized Insights into the{" "}
+          <span className="text-tertiary">Cloud Computing</span> Industry for
+          Students and Young Professionals.
+        </p>
+        <p className="text-secondary">
+          Learn though Fortnightly Newsletters & Podcast Episodes.
+        </p>
+        <form>
+          <button className="h-10 px-5 m-2 text-white uppercase transition-colors duration-150 bg-tertiary rounded-lg focus:shadow-outline hover:bg-tertiary-dark">
+            Subscribe for Free
+          </button>
+        </form>
+        <Image
+          src="/../public/Introduction-to-Roles-2.png"
+          alt="Picture of roles"
+          width={500}
+          height={500}
+        />
+        <ul className="list-disc list-inside">
+          {props.posts.map((post) => (
+            <li className="font-body" key={post.id}>
+              <Link href={`/${post.slug}`}>
+                <a>{post.title}</a>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </span>
+      <span className="block bg-tertiary">
+        <h1 className="text-white">What is Cloudbites?</h1>
+        <p className="text-white">
+          Cloudbites sheds light into the cloud computing industry for students
+          and young professionals. Subscribe for bite-sized, easy-to-understand
+          content through fortnightly newsletters! Our goal is to encourage more
+          students, and people early in their career, to start their cloud
+          learning journey, and possibly consider a career within Cloud.
+        </p>
+      </span>
+      <span className="block">
+        <Image
+          src="/../public/Introduction-to-Roles-1.png"
+          alt="Picture of roles"
+          width={500}
+          height={500}
+        />
+
+        <h1>What's included in each Newsletter?</h1>
+
+        <ul className="list-disc list-inside">
+          <li>Cloud Computing Concepts 101</li>
+          <li>Career Advice – Kickstarting your Cloud Career</li>
+          <li>Latest Cloud Computing Trends</li>
+          <li>Interviews with Industry Professionals</li>
+        </ul>
+        <form>
+          <button className="h-10 px-5 m-2 text-white uppercase transition-colors duration-150 bg-tertiary rounded-lg focus:shadow-outline hover:bg-tertiary-dark">
+            Subscribe Now
+          </button>
+        </form>
+      </span>
+      <span className="block">
+        <h3>Cloudbites</h3>
+      </span>
     </div>
-  )
-}
+  );
+};
+
+export default Home;
