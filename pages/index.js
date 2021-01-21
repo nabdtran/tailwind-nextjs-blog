@@ -54,7 +54,7 @@ const Home = (props) => {
           </button>
         </form>
         <Image
-          src="/../public/Introduction-to-Roles-2.png"
+          src="/role2.png"
           alt="Picture of roles"
           width={500}
           height={500}
@@ -81,7 +81,7 @@ const Home = (props) => {
       </span>
       <span className="block">
         <Image
-          src="/../public/Introduction-to-Roles-1.png"
+          src="/role1.png"
           alt="Picture of roles"
           width={500}
           height={500}
