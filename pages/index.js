@@ -3,7 +3,7 @@ import { getPosts } from "../data/ghost";
 import Link from "next/link";
 import Image from "next/image";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const posts = await getPosts();
   return {
     props: { posts },
